@@ -33,7 +33,7 @@ Using the PPC file, we can now generate a PDF for the top words. This command wi
 
 This plot shows the real and replicated discrepancy when we measure the association of words to documents. Are different documents using the topic in the same way, or is there local variation?
 
-![Topic 56 by documents](../blob/master/by-doc-56.png?raw=true)
+![Topic 56 by documents](../master/by-doc-56.png?raw=true)
 
 The dark circles show actual values of the doc/word association function. More frequent words show more association with their documents.
 The lighter triangles show replicated values of the doc/word association function.
@@ -54,4 +54,4 @@ Using the PPC file, we can now generate a PDF for the top words. This command wi
 
 	R -f plot_ppc.R --args by-rating-56.tsv by-rating-56.png
 
-![Topic 56 by ratings](../blob/master/by-rating-56.png?raw=true)
+![Topic 56 by ratings](../master/by-rating-56.png?raw=true)
