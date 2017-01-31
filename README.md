@@ -23,14 +23,35 @@ For example,
 	0 NA 3 3 asian 52
 	0 NA 4 4 hitting 71
 
-The second step is to generate a "labels" file with one line for each document that indicates some interesting grouping of words. I'll use a file with star ratings, from 1 to 5.
-What words are present regardless of star rating, and which are sensitive to the rating?
+Now we can run a PPC. This will select topic 56, report scores for the top 20 words, and run 20 replications.
 
-Now we can run a PPC. This will select topic 98, report scores for the top 20 words, and run 20 replications.
-
-	python mutual_info_ppc.py -t 98 -g ratings.txt -w 20 -r 20 state-*.gz > topic98.tsv
+	python mutual_info_ppc.py -t 56 -w 20 -r 20 state-*.gz > by-doc-56.tsv
 
 Using the PPC file, we can now generate a PDF for the top words. This command will look for a file called `topic98.tsv` and create a visualization of actual mutual information values and their replicated values. Using more states results in smoother estimates.
 
-	R -f plot_ppc.R --args 98
+	R -f plot_ppc.R --args by-doc-56.tsv by-doc-56.png
 
+This plot shows the real and replicated discrepancy when we measure the association of words to documents. Are different documents using the topic in the same way, or is there local variation?
+
+![Topic 56 by documents](../blob/master/by-doc-56.png?raw=true)
+
+The dark circles show actual values of the doc/word association function. More frequent words show more association with their documents.
+The lighter triangles show replicated values of the doc/word association function.
+We see the same pattern: higher ranked, more frequent words are further to the right. Therefore most of the pattern we saw in the real values can be explained just rhough word frequency.
+But not all! There is also a consistent pattern that the real values are greater than the range of replicated values.
+Documents are not using the topics as consistently as we would expect if the model were true.
+
+What might explain this variation?
+The next step is to generate a "labels" file with one line for each document that indicates some interesting grouping of words.
+I'll use a file with star ratings, from 1 to 5.
+What words are present regardless of star rating, and which are sensitive to the rating?
+
+This will select topic 56, group by star rating, and report scores for the top 20 words, and run 20 replications.
+
+	python mutual_info_ppc.py -t 56 -g ratings.txt -w 20 -r 20 state-*.gz > by-rating-56.tsv
+
+Using the PPC file, we can now generate a PDF for the top words. This command will look for a file called `topic98.tsv` and create a visualization of actual mutual information values and their replicated values. Using more states results in smoother estimates.
+
+	R -f plot_ppc.R --args by-rating-56.tsv by-rating-56.png
+
+![Topic 56 by ratings](../blob/master/by-rating-56.png?raw=true)
