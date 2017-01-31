@@ -55,3 +55,7 @@ Using the PPC file, we can now generate a PDF for the top words. This command wi
 	R -f plot_ppc.R --args by-rating-56.tsv by-rating-56.png
 
 ![Topic 56 by ratings](../master/by-rating-56.png?raw=true)
+
+We're now measuring the association of words and ratings rather than words and documents. Now most of the words lie within the expected region.
+There are a few exceptions, like "glass", "bottle", "bruschetta" and "excellent".
+This view doesn't tell us *which* of the ratings is associated with these words, but it does suggest that these are the interesting cases.
